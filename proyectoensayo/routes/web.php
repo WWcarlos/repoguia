@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\TeacherManagementController;
 use App\Http\Controllers\Admin\StudentManagementController;
 use App\Http\Controllers\Admin\EnrollmentManagementController;
 use App\Http\Controllers\Admin\GradeManagementController;
+use App\Http\Controllers\ProductoController; 
+use App\Http\Controllers\Admin\UserController;
 
 // Ruta pública
 Route::get('/', function () {
@@ -65,6 +67,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/grades', [GradeManagementController::class, 'index'])->name('grades.index');
     Route::get('/grades/{grade}/edit', [GradeManagementController::class, 'edit'])->name('grades.edit');
     Route::put('/grades/{grade}', [GradeManagementController::class, 'update'])->name('grades.update');
+});
+
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';
